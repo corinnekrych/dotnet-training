@@ -1,0 +1,169 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+# Inheratance types and objects
+
+Implementing a interface or extending a type is done with the `:` symbol:
+
+```csharp
+public class Person
+{
+  public string Speak()
+  {
+    return "Hi";
+  }
+}
+
+//inherts the Speak method
+public class ChattyPerson: Person
+{
+  public string SpeakALot()
+  {
+    return "Hi, I'm a person that speaks a lot, sorry!";
+  }
+}
+```
+
+```csharp
+var person = new Person();
+person.Speak();
+```
+
+```csharp
+var person = new ChattyPerson();
+person.Speak();
+person.SpeakALot();
+```
+
+### Constructors
+
+Using `super` and `this` in constructor is also a bit different in C#
+
+```csharp
+public class Person
+{
+  protected string _name;
+  protected int _age;
+
+  public Person(string name, int age)
+  {
+    _name = name;
+    _age = age;
+  }
+}
+
+public class ChattyPerson: Person
+{
+  private string _message;
+
+  public ChattyPerson(string name, int age) : base(name, age)
+  {
+    _message = "default message";
+  }
+  public ChattyPerson(string message) : this("John", 42)
+  {
+    _message = message;
+  }
+
+  public override string ToString()
+  {
+      return $"{_name} is my name and I'm {_age} years old, this is {_message}";
+  }
+}
+```
+
+```csharp
+var person = new ChattyPerson("my message to the world");
+Console.WriteLine(person);
+```
+## Access modifiers
+
+* public - Visible to all.
+
+* protected - Visible only from derived classes.
+
+* private - Visible only within the given class.
+
+* internal - Visible only within the same assembly.
+
+* protected internal - Visible only to the current assembly or types derived from the containing class.
+
+In C# a final class is indicated with `sealed` and a final property with `readonly`, `const` is used for constants like `static` `final` in Java
+
+## Overriding
+
+In Java, all methods are can overridden. In C# only methods that are marked as `virtual` can be overridden.
+
+```csharp
+public class Person
+{
+  public virtual string Speak()
+  {
+    return "Hello";
+  }
+}
+
+public class ChattyPerson: Person
+{
+  public override string Speak()
+  {
+    return "Hi, I'm a person that speaks a lot, sorry!";
+  }
+}
+```
+
+So to override we need the `override` keyword on the method that overides and the `virtual` keyword on the "base".
+
+```csharp
+var person = new ChattyPerson();
+person.Speak();
+```
+
+In both Java and C#, method parameters that refer to an object are always passed by reference, while primitive data type parameters (*value types* in C#) are passed by value. You can change that by adding `ref` or the `out` keyword to the parameter then even primitive types are passed by refrence;
+
+```csharp
+public void Add(int i, ref int result)
+{
+  result += i;
+}
+
+int total = 20;
+Console.WriteLine("Original value of 'total': {0}", total);
+
+Add(10, ref total);
+Console.WriteLine("Value after calling Add(): {0}", total);
+```
+
+## Properties
+
+C# was create from Java, so one thing that it learned was, that it needed to have properties.
+
+```csharp
+public class Person
+{
+  public string Name { get; set; }
+
+  private int _age;
+  public int Age
+  {
+    get { return _age; }
+    set { _age = value; }
+  }
+
+  public Person(string name, int age)
+  {
+    Name = name;
+    Age = age;
+  }
+}
+```
+
+```csharp
+var person = new Person("Erik", 40);
+person.Name = "Erik Jan";
+Console.WriteLine("{0} is {1} years old", person.Name, person.Age);
+```
+
