@@ -1,0 +1,96 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+This tutorial was written to get you started on C# language. 
+
+## Tutorial format
+
+The format of the training uses [Xamarin Workbook](), other format allows you to run C# code in web format, I recommand the tutorial in [tutorialspoint.com](https://www.tutorialspoint.com/csharp/) for a complete overview.
+
+You could also run those snippets using Visual Studio Console project.
+To run the code in Xamarin Workbook:
+1. install [Xamarin Studio 6](https://www.xamarin.com/download) and [Xamarin Workbooks](https://developer.xamarin.com/guides/cross-platform/workbooks/install/)
+2. open Basics.workbook
+
+> Note: As a limitation of the `workbook` format, you can't have Main method and use namespace because workbook run script.
+
+So you can't have:
+
+```csharp
+/*
+using System;
+namespace HelloWorldApplication
+{
+   class HelloWorld
+   {
+      static void Main(string[] args)
+      {
+         Console.WriteLine("Hello Worldrererer");
+         Console.ReadKey();
+      }
+   }
+}
+*/
+
+```
+but rather use:
+
+```csharp
+using System;
+
+class HelloWorld
+{
+	public void SayHello(string name)
+	{
+    	Console.WriteLine("Hello World " + name);
+    }
+}
+HelloWorld hello = new HelloWorld();
+hello.SayHello("Corinne");
+
+```
+
+## Basic syntax
+
+C# is an object-oriented programming language. 
+Let us look at implementation of a Rectangle class and discuss C# basic syntax:
+
+```csharp
+using System;
+
+class Rectangle 
+{
+	// member variables
+    double length;
+    double width;
+    public void Acceptdetails()
+    {
+      length = 4.5;    
+      width = 3.5;
+    }
+      
+    public double GetArea()
+    {
+      return length * width; 
+    }
+      
+    public void Display()
+    {
+      Console.WriteLine("Length: {0}", length);
+      Console.WriteLine("Width: {0}", width);
+      Console.WriteLine("Area: {0}", GetArea());
+    }
+}
+
+Rectangle r = new Rectangle();
+r.Acceptdetails();
+r.Display();
+Console.ReadLine(); 
+
+hello.SayHello("Corinne");
+
+```
+
