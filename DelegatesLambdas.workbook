@@ -1,0 +1,50 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+A bit of language history:
+
+In versions of C# before 2.0, the only way to declare a delegate was to use *named methods*. C# 2.0 introduced *anonymous methods* and in C# 3.0 and later, lambda expressions supersede anonymous methods as the preferred way to write inline code. 
+
+# Delegates
+
+Declaring a delegate is like defining a "type".
+
+```csharp
+delegate int NumberChanger(int n);
+```
+
+Once a delegate type is declared, a delegate object must be created with the `new` keyword and be associated with a particular method.
+
+```csharp
+class TestDelegate
+{
+    static int num = 10;
+    public static int AddNum(int p)
+    {
+        num += p;
+        return num;
+    }
+
+    public static int MultNum(int q)
+    {
+        num *= q;
+        return num;
+    }
+    public static int getNum()
+    {
+       return num;
+    }
+}
+// create delegate instances
+NumberChanger nc1 = new NumberChanger(TestDelegate.AddNum);
+NumberChanger nc2 = new NumberChanger(TestDelegate.MultNum);
+         
+// calling the methods using the delegate objects
+nc1(25);
+Console.WriteLine("Value of Num: {0}", TestDelegate.getNum());
+nc2(5);
+Console.WriteLine("Value of Num: {0}", TestDelegate.getNum());
+```
