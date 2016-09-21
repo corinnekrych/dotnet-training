@@ -4,9 +4,9 @@ platform: iOS
 packages: []
 ---
 
-# Inheratance types and objects
+# Inheritance types and objects
 
-Implementing a interface or extending a type is done with the `:` symbol:
+Implementing an interface or extending a type is done with the `:` symbol:
 
 ```csharp
 public class Person
@@ -17,7 +17,7 @@ public class Person
   }
 }
 
-//inherts the Speak method
+// inherit the Speak method
 public class ChattyPerson: Person
 {
   public string SpeakALot()
@@ -38,9 +38,9 @@ person.Speak();
 person.SpeakALot();
 ```
 
-### Constructors
+## Constructors
 
-Using `super` and `this` in constructor is also a bit different in C#
+Using `super` and `this` in constructor is a bit different in C#.
 
 ```csharp
 public class Person
@@ -139,7 +139,7 @@ Console.WriteLine("Value after calling Add(): {0}", total);
 
 ## Properties
 
-C# was create from Java, so one thing that it learned was, that it needed to have properties.
+C# was created from Java, so one thing that it learned was, that it needed to have properties.
 
 ```csharp
 public class Person
@@ -157,11 +157,10 @@ public class Person
   {
     Name = name;
     Age = age;
+    Console.WriteLine("{0} is {1} years old", name, _age);
   }
 }
-```
 
-```csharp
 var person = new Person("Erik", 40);
 person.Name = "Erik Jan";
 Console.WriteLine("{0} is {1} years old", person.Name, person.Age);
