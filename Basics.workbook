@@ -125,7 +125,7 @@ int x = 1, y = 2;
 int sum = x + y;
 string sumCalculation = String.Format("{0} + {1} = {2}", x, y, sum);
 Console.WriteLine(sumCalculation);
-Console.WriteLine($"x: {x}");
+Console.WriteLine($"{x} + {y} = {sum}");
 Console.WriteLine(@"x: {0}", x);
 ```
 * More...
@@ -140,7 +140,7 @@ string name = "John Doe";
 string newName = name.Replace("John", "Eric");
 Console.WriteLine(newName);
 
-string fruit = "apple,orange,banana";
+string fruit = "apple, orange, banana";
 Console.WriteLine("Found orange in position: " + fruit.IndexOf("orange"));
 Console.WriteLine("Found lemon in position: " + fruit.IndexOf("lemon"));
 ```
@@ -150,10 +150,8 @@ Console.WriteLine("Found lemon in position: " + fruit.IndexOf("lemon"));
 Similar to Java:
 
 ```csharp
-List<string> fruits = new List<string>();
+IList<string> fruits = new List<string>(){"apple", "banana"};
 // add fruits
-fruits.Add("apple");
-fruits.Add("banana");
 fruits.Add("orange");
 
 // now remove the banana
@@ -163,14 +161,14 @@ Console.WriteLine(fruits.Count);
 ```
 
 ```csharp
-Dictionary<string, long> phonebook = new Dictionary<string, long>();
-phonebook.Add("Alex", 415434543);
-phonebook["Jessica"] = 415984588;
+IDictionary<string, long> phonebook = new Dictionary<string, long>() {{"Julio", 415434543}, {"Summers", 415984588}, {"Passos", 415984588}, {"Oleg", 415984588}};
+phonebook.Add("Corinne", 415434543);
+phonebook["Erik"] = 415984588;
+phonebook.Remove("Corinne");
 foreach (KeyValuePair<string, long> item in phonebook)
 {
     Console.WriteLine(item.Key + "   " + item.Value);
 }
-phonebook.Remove("Jessica");
 Console.WriteLine(phonebook.Count);
 
 ```
