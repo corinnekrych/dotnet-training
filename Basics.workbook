@@ -4,56 +4,18 @@ platform: iOS
 packages: []
 ---
 
-This tutorial was written to get you started on C# language. 
-
-## Tutorial format
+# Tutorial format
 
 The format of the training uses [Xamarin Workbook](), other format allows you to run C# code in web format, I recommand the tutorial in [tutorialspoint.com](https://www.tutorialspoint.com/csharp/) for a complete overview.
 
 You could also run those snippets using Visual Studio Console project.
 To run the code in Xamarin Workbook:
 1. install [Xamarin Studio 6](https://www.xamarin.com/download) and [Xamarin Workbooks](https://developer.xamarin.com/guides/cross-platform/workbooks/install/)
-2. open Basics.workbook
+2. open `Basics.workbook`
 
-> Note: As a limitation of the `workbook` format, you can't have Main method and use namespace because workbook run script.
+> Note on editing tutorial: If you want to update the training material to add code description + code snippet, simply open `Basics.workbook` with a text editor and notice, you just have plain old markdown.
 
-So you can't have:
-
-```csharp
-/*
-using System;
-namespace HelloWorldApplication
-{
-   class HelloWorld
-   {
-      static void Main(string[] args)
-      {
-         Console.WriteLine("Hello Worldrererer");
-         Console.ReadKey();
-      }
-   }
-}
-*/
-
-```
-but rather use:
-
-```csharp
-using System;
-
-class HelloWorld
-{
-	public void SayHello(string name)
-	{
-    	Console.WriteLine("Hello World " + name);
-    }
-}
-HelloWorld hello = new HelloWorld();
-hello.SayHello("Corinne");
-
-```
-
-## Basic syntax
+# Basic syntax
 
 C# is an object-oriented programming language. 
 Let us look at implementation of a Rectangle class and discuss C# basic syntax:
@@ -79,7 +41,7 @@ class Rectangle
       
     public void Display()
     {
-      Console.WriteLine("Length: {0}", length);
+      Console.WriteLine("Length: {0} width {1}", length, width);
       Console.WriteLine("Width: {0}", width);
       Console.WriteLine("Area: {0}", GetArea());
     }
@@ -88,9 +50,125 @@ class Rectangle
 Rectangle r = new Rectangle();
 r.Acceptdetails();
 r.Display();
-Console.ReadLine(); 
 
-hello.SayHello("Corinne");
+```
+What can we note from this code snippet?
+* The `using` keyword is used for including the namespaces in the program.
+* upper case for `class` and `method` names, lower case for member variables (attributes).
+* `data type` can be `Value Type` (like `double`, `int`) or `Reference Type` (like `string`)
+* string interpolation with `{0}`, `+` operator can be used too 
+
+# Nullables
+
+* C# provides a special data types, the `nullable` types represented by `?`, to which you can assign normal range of values as well as null values.
+
+```csharp
+using System;
+
+int? num1 = null;
+int? num2 = 45;
+double? num3 = new double?();
+double? num4 = 3.14157;
+int? num5 = num1 + num2; 
+
+bool? boolval = new bool?();
+
+// display the values
+Console.WriteLine("Nullables at Show: {0}, {1}, {2}, {3}", num1, num2, num3, num4);
+if (num4 == null) {
+	Console.WriteLine("num4 is null");
+}
+Console.WriteLine("A Nullable boolean value: {0}", boolval);
+```
+> The `nullables` type is different than an `optional` implementation. you don't have to unwrap it before usig it.
+
+* Null coalescing operator: Swift stole that too ;)
+
+```csharp
+//using System;
+double? num1 = null;
+double? num2 = 3.14157;
+double num3;
+num3 = num1 ?? 5.34;      
+Console.WriteLine(" Value of num3: {0}", num3);
+num3 = num2 ?? 5.34;
+Console.WriteLine(" Value of num3: {0}", num3);
 
 ```
 
+# Variable and constants
+C# supports *type inference* - which means that you don't always have to explicitly specify a type - you can let the compiler try and understand the type of variable automatically. 
+
+```csharp
+const double pi = 3.14159;  
+var x = 1;
+var y = 2;
+var sum = x + y;    // sum will also be defined as an integer
+var sum2 = x + pi;  // sum2 is a double
+Console.WriteLine($"x: {x} y: {y} sum: {sum} sum2: {sum2}");
+```
+
+# String
+
+Use `string` which is an alias to the Type `String` when declaring variable.
+
+```csharp
+string myString = "A string.";
+String myString2 = "A string2.";
+string emptyString = String.Empty;
+string anotherEmptyString = "";
+```
+* String formating / String interpolation
+
+```csharp
+int x = 1, y = 2;
+int sum = x + y;
+string sumCalculation = String.Format("{0} + {1} = {2}", x, y, sum);
+Console.WriteLine(sumCalculation);
+Console.WriteLine($"{x} + {y} = {sum}");
+Console.WriteLine(@"x: {0}", x);
+```
+* More...
+
+```csharp
+string fullString = "full string";
+string partOfString = fullString.Substring(5);
+string shorterPart = fullString.Substring(5, 3);
+Console.WriteLine(partOfString);
+Console.WriteLine(shorterPart);
+string name = "John Doe";
+string newName = name.Replace("John", "Eric");
+Console.WriteLine(newName);
+
+string fruit = "apple, orange, banana";
+Console.WriteLine("Found orange in position: " + fruit.IndexOf("orange"));
+Console.WriteLine("Found lemon in position: " + fruit.IndexOf("lemon"));
+```
+
+# Arrays, List and Dictionnaries 
+
+Similar to Java:
+
+```csharp
+IList<string> fruits = new List<string>(){"apple", "banana"};
+// add fruits
+fruits.Add("orange");
+
+// now remove the banana
+fruits.RemoveAt(1);
+Console.WriteLine(fruits.Count);
+
+```
+
+```csharp
+IDictionary<string, long> phonebook = new Dictionary<string, long>() {{"Julio", 415434543}, {"Summers", 415984588}, {"Passos", 415984588}, {"Oleg", 415984588}};
+phonebook.Add("Corinne", 415434543);
+phonebook["Erik"] = 415984588;
+phonebook.Remove("Corinne");
+foreach (KeyValuePair<string, long> item in phonebook)
+{
+    Console.WriteLine(item.Key + "   " + item.Value);
+}
+Console.WriteLine(phonebook.Count);
+
+```
