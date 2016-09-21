@@ -1,0 +1,55 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+# Exceptions
+
+In C# the base class is the `Exception` class, `SystemException` and `ApplicationException` are two categories of exceptions that derive from this base.
+All user-defined exceptions should derive from ApplicationException to differentiate between run-time and application errors.
+
+When using multiple catch blocks, the exceptions caught must be placed in order of increasing generality as only the first catch block that matches the thrown exception will be executed.
+
+```csharp
+using System.IO;
+
+...
+
+try
+{
+  // code to open and read a file
+}
+catch (FileNotFoundException e)
+{
+  // handle the file not found exception first
+}
+catch (IOException e)
+{
+  // handle any other IO exceptions second
+}
+catch
+{
+  // a catch block without a parameter
+  // handle all other exceptions last
+}
+finally
+{
+  // this is executed whether or not an exception occurs
+  // use to release any external resources
+}
+```
+
+# Attributes
+
+C# provides a mechanism, called an attribute, for adding declarative information about types.
+This is like the annotation in Java.
+This example is adding information how to serialse to Json:
+
+```csharp
+public class ShoppingItem
+{
+  [JsonProperty("name")]
+  public string Name { set; get; }
+}
+```
