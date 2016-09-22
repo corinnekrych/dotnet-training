@@ -165,4 +165,4 @@ var person = new Person("Erik", 40);
 person.Name = "Erik Jan";
 Console.WriteLine("{0} is {1} years old", person.Name, person.Age);
 ```
-
+[Next Delegae & Lambdas](DelegatesLambdas.workbook)
