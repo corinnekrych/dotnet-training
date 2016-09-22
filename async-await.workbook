@@ -1,0 +1,57 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+# Asynchronous Programming with async and await
+
+MS has developed a way to write async programs in a synchronous way. Because of that it make it a bit hard to get your head around it. Adding async to a method will make all the callers of that method to be async, so async is a bit like a virus that spreads itself accross your codebase.
+
+```csharp
+#r "System.Net.Http"
+```
+
+```csharp
+using System.Threading.Tasks;
+using System.Net.Http;
+
+// Three things to note in the signature:
+//  - The method has an async modifier.
+//  - The return type is Task or Task<T>.
+//    Here, it is Task<int> because the return statement returns an integer.
+//  - The method name ends in "Async."
+async Task<int> AccessTheWebAsync()
+{
+  HttpClient client = new HttpClient();
+
+  // GetStringAsync returns a Task<string>. That means that when you await the
+  // task you'll get a string (urlContents).
+  Task<string> getStringTask = client.GetStringAsync("http://msdn.microsoft.com");
+
+  // You can do work here that doesn't rely on the string from GetStringAsync.
+  DoIndependentWork();
+
+  // The await operator suspends AccessTheWebAsync.
+  //  - AccessTheWebAsync can't continue until getStringTask is complete.
+  //  - Meanwhile, control returns to the caller of AccessTheWebAsync.
+  //  - Control resumes here when getStringTask is complete.
+  //  - The await operator then retrieves the string result from getStringTask.
+  string urlContents = await getStringTask;
+
+  // The return statement specifies an integer result.
+  // Any methods that are awaiting AccessTheWebAsync retrieve the length value.
+  return urlContents.Length;
+}
+
+public void DoIndependentWork()
+{
+  //do something important here...
+}
+```
+
+```csharp
+var result = await AccessTheWebAsync();
+Console.WriteLine(result);
+```
+
