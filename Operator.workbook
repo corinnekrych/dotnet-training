@@ -1,0 +1,52 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+# Operator Overloading
+
+Like C++, C# allows you to overload operators for use on your own classes. This makes it possible for a user-defined data type to look as natural and be as logical to use as a fundamental data type. Here is an example of a `ComplexNumber` that has a `+` and `-` operator defined.
+
+```csharp
+public class ComplexNumber
+{
+  private readonly int _real;
+  private readonly int _imaginary;
+
+  public ComplexNumber(int r, int i)
+  {
+    _real = r;
+    _imaginary = i;
+  }
+
+  public override string ToString()
+  {
+    return $"{_real} + {_imaginary}i";
+  }
+
+  // Overloading '+' operator:
+  public static ComplexNumber operator +(ComplexNumber a, ComplexNumber b)
+  {
+    return new ComplexNumber(a._real + b._real, a._imaginary + b._imaginary);
+  }
+
+  // Overloading '-' operator:
+  public static ComplexNumber operator -(ComplexNumber a, ComplexNumber b)
+  {
+    return new ComplexNumber(a._real - b._real, a._imaginary - b._imaginary);
+  }
+}
+```
+
+To use it:
+
+```csharp
+var a = new ComplexNumber(10, 12);
+var b = new ComplexNumber(8, 9);
+
+var sum = a + b;
+Console.WriteLine("Complex Number sum = {0}", sum);
+```
+
+[Next Exceptions](Exceptions.workbook)
