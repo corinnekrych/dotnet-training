@@ -1,0 +1,85 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+# Events
+
+First let’s make a button on the screen and see how we can handle click events:
+
+```csharp
+var window = new UIWindow(UIScreen.MainScreen.Bounds);
+window.MakeKeyAndVisible();
+var controller = new UIViewController();
+window.RootViewController = controller;
+var button = UIButton.FromType(UIButtonType.System);
+button.Frame = new CGRect(10, 200, controller.View.Bounds.Width - 20, 31.0f);
+button.SetTitle ("Submit", UIControlState.Normal);
+controller.Add(button);
+```
+
+In C# ther are no anonymous inner classes, but there is a nice eventing system. There are 3 ways to add a handler on a touch event:
+
+## Anonymous Delegate
+
+```csharp
+button.TouchUpInside += delegate {
+  new UIAlertView("Touch", "You touched me!", null, "OK", null).Show();
+};
+```
+
+## Lambda Expression
+
+```csharp
+button.TouchUpInside += (sender, ea) => {
+  new UIAlertView("Touch", "Handled by a Lambda", null, "OK", null).Show();
+};
+```
+
+## Assign a delegate method
+
+```csharp
+void HandleTouchUpInside (object sender, EventArgs ea) {
+    new UIAlertView("Touch", "Handled by a delegate method", null, "OK", null).Show();
+}
+
+button.TouchUpInside += HandleTouchUpInside;
+```
+
+In this last case we can also remove the handler like this:
+
+```csharp
+button.TouchUpInside -= HandleTouchUpInside;
+```
+
+Invoking a event for yourself, to setup a you'll need a bit boilerplate:
+
+```csharp
+public class Event
+{
+  public delegate void CustomEventHandler(object sender, EventArgs e);
+
+  public event CustomEventHandler CustomEvent;
+
+  public void InvokeEvent()
+  {
+    // Invoke the event from within the class that declared the event:
+    CustomEvent(this, EventArgs.Empty);
+  }
+}
+```
+
+Then to "listen" to the event:
+```csharp
+var e = new Event();
+
+e.CustomEvent += new Event.CustomEventHandler((sender, args) =>
+    new UIAlertView("CustomEvent", "Fired by a custom event", null, "OK", null).Show());
+```
+
+```csharp
+e.InvokeEvent();
+```
+
+[Next Operator overloading](Operator.workbook)
