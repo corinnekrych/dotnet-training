@@ -1,7 +1,9 @@
 ---
 uti: com.xamarin.workbook
 platform: iOS
-packages: []
+packages:
+- id: Newtonsoft.Json
+  version: 9.0.1
 ---
 
 # Exceptions
@@ -43,11 +45,26 @@ finally
 C# provides a mechanism, called an attribute, for adding declarative information about types. This is like the annotation in Java. This example is adding information how to serialse to Json:
 
 ```csharp
+#r "Newtonsoft.Json"
+```
+
+```csharp
+using Newtonsoft.Json;
 public class ShoppingItem
 {
+  public ShoppingItem(string name)
+  {
+    Name = name;
+  }
+
   [JsonProperty("name")]
   public string Name { set; get; }
 }
+```
+
+```csharp
+var json = JsonConvert.SerializeObject(new ShoppingItem("milk"));
+Console.WriteLine(json);
 ```
 
 [Next async await](async-await.workbook)
