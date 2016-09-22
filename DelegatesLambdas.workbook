@@ -19,32 +19,112 @@ delegate int NumberChanger(int n);
 Once a delegate type is declared, a delegate object must be created with the `new` keyword and be associated with a particular method.
 
 ```csharp
-class TestDelegate
+public class TestDelegate
 {
-    static int num = 10;
-    public static int AddNum(int p)
+    public int Num  
     {
-        num += p;
-        return num;
+       get { return _num; }
+      set { _num = value; }
+    }
+    private int _num = 10;
+    public int AddNum(int p)
+    {
+        _num += p;
+        return _num;
     }
 
-    public static int MultNum(int q)
+    public int MultNum(int q)
     {
-        num *= q;
-        return num;
+        _num *= q;
+        return _num;
     }
-    public static int getNum()
+    public int getNum()
     {
-       return num;
+       return _num;
     }
 }
 // create delegate instances
-NumberChanger nc1 = new NumberChanger(TestDelegate.AddNum);
-NumberChanger nc2 = new NumberChanger(TestDelegate.MultNum);
+var obj = new TestDelegate();
+NumberChanger nc1 = new NumberChanger(obj.AddNum);
+NumberChanger nc2 = new NumberChanger(obj.MultNum);
          
 // calling the methods using the delegate objects
 nc1(25);
-Console.WriteLine("Value of Num: {0}", TestDelegate.getNum());
+Console.WriteLine("Value of Num: {0}", obj.getNum());
 nc2(5);
-Console.WriteLine("Value of Num: {0}", TestDelegate.getNum());
+Console.WriteLine("Value of Num: {0}", obj.getNum());
 ```
+
+# Compose Delegates
+
+Delegate objects can be composed using the "+" operator. A composed delegate calls the two delegates it was composed from. Only delegates of the same type can be composed. The "-" operator can be used to remove a component delegate from a composed delegate.
+
+```csharp
+obj.Num = 10;
+
+var resultNC1 = nc1(5);
+obj.Num = 10;
+var composedNC = nc1 + nc2;
+var resultComposedNC = composedNC(5);
+
+obj.Num = 10;
+var originalNC1 = composedNC - nc2;
+var resultOriginalNC1= originalNC1(5);
+
+Console.WriteLine("resultNC1 {0} resultComposedNC {1} resultOriginalNC1 {2}", resultNC1, resultComposedNC, resultOriginalNC1);
+if (nc1 == originalNC1) 
+{
+    Console.WriteLine("I told you so!");
+}
+
+```
+
+# Anonymous Methods
+
+Anonymous methods provide a technique to pass a code block as a delegate parameter. Anonymous methods are the methods without a name, just the body.
+
+
+```chsharp
+delegate void PrintNumber(int n);
+
+PrintNumber print = delegate(int x)
+{
+   Console.WriteLine("Anonymous Method: {0}", x);
+};
+print(10);
+```
+
+# Lambdas
+Using lambda expressions, you can write local functions that can be passed as arguments or returned as the value of function calls.
+
+## Expression Lambdas
+An expression lambda returns the result of the expression and takes the following basic form:
+```
+List<string> people = new List<string>(){"Erik", "Summers", "Camilla"};
+string person = people.Find(person => person.Contains("Erik"));
+Console.WriteLine($"Person found: {person}");
+
+public string FindPerson(string nameContains, List<string> persons)
+{
+    foreach (string person in persons)
+        if (person.Contains(nameContains))
+            return person;
+    return null;
+}
+string person2 = FindPerson("Erik", people);
+Console.WriteLine($"Person found: {person2}");
+```
+
+
+## Statement Lambdas
+
+As opposed to `expression lambdas`, `statement lambadas` does not return value, they are used like anonymous methods. Very useful for UI event.
+
+```csharp
+delegate void TestDelegate(string s);
+
+TestDelegate myDel = n => { string s = n + " " + "World"; Console.WriteLine(s); };
+myDel("Hello");
+```
+
+[Next Events](Events.workbook)
