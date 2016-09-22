@@ -14,8 +14,6 @@ When using multiple catch blocks, the exceptions caught must be placed in order 
 ```csharp
 using System.IO;
 
-...
-
 try
 {
   // code to open and read a file
@@ -42,9 +40,7 @@ finally
 
 # Attributes
 
-C# provides a mechanism, called an attribute, for adding declarative information about types.
-This is like the annotation in Java.
-This example is adding information how to serialse to Json:
+C# provides a mechanism, called an attribute, for adding declarative information about types. This is like the annotation in Java. This example is adding information how to serialse to Json:
 
 ```csharp
 public class ShoppingItem
