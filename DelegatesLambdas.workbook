@@ -6,7 +6,7 @@ packages: []
 
 A bit of language history:
 
-In versions of C# before 2.0, the only way to declare a delegate was to use *named methods*. C# 2.0 introduced *anonymous methods* and in C# 3.0 and later, lambda expressions supersede anonymous methods as the preferred way to write inline code. 
+In versions of C# before 2.0, the only way to declare a delegate was to use *named methods*. C# 2.0 introduced *anonymous methods* and in C# 3.0 and later, lambda expressions supersede anonymous methods as the preferred way to write inline code.
 
 # Delegates
 
@@ -53,7 +53,7 @@ Console.WriteLine("Value of Num: {0}", obj.getNum());
 
 # Compose Delegates
 
-Delegate objects can be composed using the "+" operator. A composed delegate calls the two delegates it was composed from. Only delegates of the same type can be composed. The "-" operator can be used to remove a component delegate from a composed delegate.
+Delegate objects can be composed using the "\+" operator. A composed delegate calls the two delegates it was composed from. Only delegates of the same type can be composed. The "-" operator can be used to remove a component delegate from a composed delegate.
 
 ```csharp
 obj.Num = 10;
@@ -72,15 +72,13 @@ if (nc1 == originalNC1)
 {
     Console.WriteLine("I told you so!");
 }
-
 ```
 
 # Anonymous Methods
 
 Anonymous methods provide a technique to pass a code block as a delegate parameter. Anonymous methods are the methods without a name, just the body.
 
-
-```chsharp
+```csharp
 delegate void PrintNumber(int n);
 
 PrintNumber print = delegate(int x)
@@ -91,17 +89,27 @@ print(10);
 ```
 
 # Lambdas
+
 Using lambda expressions, you can write local functions that can be passed as arguments or returned as the value of function calls.
 
 ## Expression Lambdas
+
 An expression lambda returns the result of the expression and takes the following basic form:
-```
-// Option1: with lambda expression
+
+
+```csharp
+// Option1: with lambda expression and LINQ (Find belong to LINQ namespace)
 var people = new List<string>(){"Erik", "Summers", "Camilla"};
 var foundPerson1 = people.Find(person => person.Contains("Erik"));
-Console.WriteLine($"Person found: {foundPerson1}");
+Console.WriteLine($"Person found with lambda: {foundPerson1}");
 
-// Option2: without any fancy stuff, just plain old method
+// Option2: with lambda expression and LINQ full blown syntax
+var query = from person in people
+            where person == "Erik"
+            select person;
+Console.WriteLine(@"Person found with LINQ: {0}", query.First());
+
+// Option3: without any fancy stuff, just plain old method
 public string FindPerson(string nameContains, List<string> persons)
 {
     foreach (string person in persons)
@@ -110,9 +118,11 @@ public string FindPerson(string nameContains, List<string> persons)
     return null;
 }
 var foundPerson2 = FindPerson("Erik", people);
-Console.WriteLine($"Person found: {foundPerson2}");
+Console.WriteLine($"Person found plain old method: {foundPerson2}");
+
 ```
 
+Lambda expression are the predicate expression that powers up LINQ syntax.
 
 ## Statement Lambdas
 
