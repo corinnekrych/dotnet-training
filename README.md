@@ -1,13 +1,13 @@
 # dotnet-training
-This repo was written to quick start android or iOS developer in the world of Ms .Net.
+This repo was written to quick start android or iOS development in the world of Ms .Net.
 
-The lessons uses [Xamarin workbook](https://developer.xamarin.com/guides/cross-platform/workbooks/install/) to present `C#` code snippet.
+The lessons use [Xamarin workbook](https://developer.xamarin.com/guides/cross-platform/workbooks/install/) to present `C#` code snippet.
 
 ## Pre-requisites
 
-On mxcOS or Windows, download the commnunity edition for:
+On macOS or Windows, download the community edition for:
 
-* [Xamarin Strudio 6+](https://developer.xamarin.com/guides/cross-platform/xamarin-studio/) 
+* [Xamarin Studio 6+](https://developer.xamarin.com/guides/cross-platform/xamarin-studio/) 
 * [Xamarin Workbook](https://developer.xamarin.com/guides/cross-platform/workbooks/)
 
 ## Basics
@@ -22,10 +22,10 @@ open Basics.workbook
 
 ## Reference material
 
-* [TutorialPoint online classses](https://www.tutorialspoint.com/csharp)
-* [learCS.org](http://www.learncs.org/)
+* [TutorialsPoint online classes](https://www.tutorialspoint.com/csharp)
+* [learnCS.org](http://www.learncs.org/)
 * [Introducing Xamarin Workbooks](http://conceptdev.blogspot.fr/2016/04/introducing-xamarin-workbooks.html)
-* [Xamarin gihub example](https://github.com/xamarin/workbooks)
-* [More Xamaring workbook sample for Andrdoid and iOS](https://github.com/xamarin/mobile-samples/)
+* [Xamarin github example](https://github.com/xamarin/workbooks)
+* [More Xamaring workbook samples for Andrdoid and iOS](https://github.com/xamarin/mobile-samples/)
 * [C#6 What's new?](https://msdn.microsoft.com/en-us/magazine/dn802602.aspx)
-* [Roselyn](https://github.com/dotnet/roslyn)
+* [Roslyn](https://github.com/dotnet/roslyn)
