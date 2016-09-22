@@ -172,3 +172,4 @@ foreach (KeyValuePair<string, long> item in phonebook)
 Console.WriteLine(phonebook.Count);
 
 ```
+[Next classes and Types](Types.workbook)
