@@ -1,0 +1,138 @@
+---
+uti: com.xamarin.workbook
+platform: iOS
+packages: []
+---
+
+A bit of language history:
+
+In versions of C# before 2.0, the only way to declare a delegate was to use *named methods*. C# 2.0 introduced *anonymous methods* and in C# 3.0 and later, lambda expressions supersede anonymous methods as the preferred way to write inline code.
+
+# Delegates
+
+Declaring a delegate is like defining a "type".
+
+```csharp
+delegate int NumberChanger(int n);
+```
+
+Once a delegate type is declared, a delegate object must be created with the `new` keyword and be associated with a particular method.
+
+```csharp
+public class TestDelegate
+{
+    public int Num {get; set;} = 10; 
+
+    public int AddNum(int p)
+    {
+        Num += p;
+        return Num;
+    }
+
+    public int MultNum(int q)
+    {
+        Num *= q;
+        return Num;
+    }
+    public int getNum()
+    {
+       return Num;
+    }
+}
+// create delegate instances
+var obj = new TestDelegate();
+NumberChanger nc1 = new NumberChanger(obj.AddNum);
+NumberChanger nc2 = new NumberChanger(obj.MultNum);
+         
+// calling the methods using the delegate objects
+nc1(25);
+Console.WriteLine("Value of Num: {0}", obj.getNum());
+nc2(5);
+Console.WriteLine("Value of Num: {0}", obj.getNum());
+```
+
+# Compose Delegates
+
+Delegate objects can be composed using the "\+" operator. A composed delegate calls the two delegates it was composed from. Only delegates of the same type can be composed. The "-" operator can be used to remove a component delegate from a composed delegate.
+
+```csharp
+obj.Num = 10;
+
+var resultNC1 = nc1(5);
+obj.Num = 10;
+var composedNC = nc1 + nc2;
+var resultComposedNC = composedNC(5);
+
+obj.Num = 10;
+var originalNC1 = composedNC - nc2;
+var resultOriginalNC1= originalNC1(5);
+
+Console.WriteLine("resultNC1 {0} resultComposedNC {1} resultOriginalNC1 {2}", resultNC1, resultComposedNC, resultOriginalNC1);
+if (nc1 == originalNC1) 
+{
+    Console.WriteLine("I told you so!");
+}
+```
+
+# Anonymous Methods
+
+Anonymous methods provide a technique to pass a code block as a delegate parameter. Anonymous methods are the methods without a name, just the body.
+
+```csharp
+delegate void PrintNumber(int n);
+
+PrintNumber print = delegate(int x)
+{
+   Console.WriteLine("Anonymous Method: {0}", x);
+};
+print(10);
+```
+
+# Lambdas
+
+Using lambda expressions, you can write local functions that can be passed as arguments or returned as the value of function calls.
+
+## Expression Lambdas
+
+An expression lambda returns the result of the expression and takes the following basic form:
+
+
+```csharp
+// Option1: with lambda expression and LINQ (Find belong to LINQ namespace)
+var people = new List<string>(){"Erik", "Summers", "Camilla"};
+var foundPerson1 = people.Find(person => person.Contains("Erik"));
+Console.WriteLine($"Person found with lambda: {foundPerson1}");
+
+// Option2: with lambda expression and LINQ full blown syntax
+var query = from person in people
+            where person == "Erik"
+            select person;
+Console.WriteLine(@"Person found with LINQ: {0}", query.First());
+
+// Option3: without any fancy stuff, just plain old method
+public string FindPerson(string nameContains, List<string> persons)
+{
+    foreach (string person in persons)
+        if (person.Contains(nameContains))
+            return person;
+    return null;
+}
+var foundPerson2 = FindPerson("Erik", people);
+Console.WriteLine($"Person found plain old method: {foundPerson2}");
+
+```
+
+Lambda expression are the predicate expression that powers up LINQ syntax.
+
+## Statement Lambdas
+
+As opposed to `expression lambdas`, `statement lambadas` does not return value, they are used like anonymous methods. Very useful for UI event.
+
+```csharp
+delegate void TestDelegate(string s);
+
+TestDelegate myDel = n => { var s = $"{n} World"; Console.WriteLine(s); };
+myDel("Hello");
+```
+
+[Next Events](Events.workbook)
