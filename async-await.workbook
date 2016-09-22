@@ -10,6 +10,7 @@ MS has developed a way to write async programs in a synchronous way. Because of 
 
 ```csharp
 using System.Threading.Tasks;
+using System.Net.Http.HttpClient;
 
 // Three things to note in the signature:
 //  - The method has an async modifier.
@@ -39,3 +40,5 @@ async Task<int> AccessTheWebAsync()
   return urlContents.Length;
 }
 ```
+
+> Expect this code to fail as we don’t mock http call in this workbook.
