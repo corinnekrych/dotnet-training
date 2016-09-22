@@ -18,6 +18,7 @@ In a command line:
 ```
 open Basics.workbook
 ```
+![Xamarin Workbook](xamarin_workbook.png)
 
 ## Reference material
 
