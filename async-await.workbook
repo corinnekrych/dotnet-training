@@ -9,8 +9,12 @@ packages: []
 MS has developed a way to write async programs in a synchronous way. Because of that it make it a bit hard to get your head around it. Adding async to a method will make all the callers of that method to be async, so async is a bit like a virus that spreads itself accross your codebase.
 
 ```csharp
+#r "System.Net.Http"
+```
+
+```csharp
 using System.Threading.Tasks;
-using System.Net.Http.HttpClient;
+using System.Net.Http;
 
 // Three things to note in the signature:
 //  - The method has an async modifier.
@@ -39,6 +43,15 @@ async Task<int> AccessTheWebAsync()
   // Any methods that are awaiting AccessTheWebAsync retrieve the length value.
   return urlContents.Length;
 }
+
+public void DoIndependentWork()
+{
+  //do something important here...
+}
 ```
 
-> Expect this code to fail as we don’t mock http call in this workbook.
+```csharp
+var result = await AccessTheWebAsync();
+Console.WriteLine(result);
+```
+
