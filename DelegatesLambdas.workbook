@@ -21,26 +21,22 @@ Once a delegate type is declared, a delegate object must be created with the `ne
 ```csharp
 public class TestDelegate
 {
-    public int Num  
-    {
-       get { return _num; }
-      set { _num = value; }
-    }
-    private int _num = 10;
+    public int Num {get; set;} = 10; 
+
     public int AddNum(int p)
     {
-        _num += p;
-        return _num;
+        Num += p;
+        return Num;
     }
 
     public int MultNum(int q)
     {
-        _num *= q;
-        return _num;
+        Num *= q;
+        return Num;
     }
     public int getNum()
     {
-       return _num;
+       return Num;
     }
 }
 // create delegate instances
@@ -100,10 +96,12 @@ Using lambda expressions, you can write local functions that can be passed as ar
 ## Expression Lambdas
 An expression lambda returns the result of the expression and takes the following basic form:
 ```
-List<string> people = new List<string>(){"Erik", "Summers", "Camilla"};
-string person = people.Find(person => person.Contains("Erik"));
-Console.WriteLine($"Person found: {person}");
+// Option1: with lambda expression
+var people = new List<string>(){"Erik", "Summers", "Camilla"};
+var foundPerson1 = people.Find(person => person.Contains("Erik"));
+Console.WriteLine($"Person found: {foundPerson1}");
 
+// Option2: without any fancy stuff, just plain old method
 public string FindPerson(string nameContains, List<string> persons)
 {
     foreach (string person in persons)
@@ -111,8 +109,8 @@ public string FindPerson(string nameContains, List<string> persons)
             return person;
     return null;
 }
-string person2 = FindPerson("Erik", people);
-Console.WriteLine($"Person found: {person2}");
+var foundPerson2 = FindPerson("Erik", people);
+Console.WriteLine($"Person found: {foundPerson2}");
 ```
 
 
@@ -123,7 +121,7 @@ As opposed to `expression lambdas`, `statement lambadas` does not return value, 
 ```csharp
 delegate void TestDelegate(string s);
 
-TestDelegate myDel = n => { string s = n + " " + "World"; Console.WriteLine(s); };
+TestDelegate myDel = n => { var s = $"{n} World"; Console.WriteLine(s); };
 myDel("Hello");
 ```
 
